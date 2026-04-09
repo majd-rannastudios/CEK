@@ -175,8 +175,8 @@ export default function Home() {
         <Image
           src="/logo.png"
           alt="CEK Group"
-          width={120}
-          height={40}
+          width={148}
+          height={70}
           priority
           style={{ cursor: 'pointer' }}
           onClick={() => scrollToSection('hero')}
@@ -568,7 +568,13 @@ export default function Home() {
       <footer>
         <div className="footer-grid">
           <div>
-            <div className="footer-brand">CEK Group</div>
+            <Image
+              src="/logo.png"
+              alt="CEK Group"
+              width={140}
+              height={66}
+              style={{ filter: 'brightness(0) invert(1)', opacity: 0.9 }}
+            />
             <p className="footer-tagline">Engineered Integrity. Absolute Precision.</p>
           </div>
           <div>
