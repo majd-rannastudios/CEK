@@ -63,16 +63,27 @@ body{background:#fcf9f1;color:#1c1c17;font-family:"Manrope",sans-serif;}
 
 /* ── PROJECTS ── */
 #projects{background:#fcf9f1;}
-.collage{display:grid;grid-template-columns:repeat(12,1fr);grid-template-rows:420px 420px;gap:.75rem;}
-.pc{position:relative;overflow:hidden;cursor:pointer;background:#f1eee6;}
-.pc img{width:100%;height:100%;object-fit:cover;filter:grayscale(100%);transition:transform 1s,filter .5s;display:block;}
-.pc:hover img{transform:scale(1.04);filter:grayscale(50%);}
-.pc-over{position:absolute;inset:0;background:linear-gradient(to top,rgba(24,40,30,.88) 0%,rgba(24,40,30,.1) 55%,transparent 100%);opacity:0;transition:opacity .45s;display:flex;flex-direction:column;justify-content:flex-end;padding:2rem 2.25rem;}
-.pc:hover .pc-over{opacity:1;}
-.pc-base{position:absolute;bottom:0;left:0;right:0;background:linear-gradient(to top,rgba(24,40,30,.7),transparent);padding:1.25rem 1.75rem;transition:opacity .35s;}
-.pc:hover .pc-base{opacity:0;}
-.pc-cat{font-family:"Manrope",sans-serif;text-transform:uppercase;letter-spacing:.1em;font-size:.62rem;font-weight:600;color:#b8cbbc;margin-bottom:.35rem;}
-.pc-name{font-family:"Newsreader",serif;color:#fcf9f1;}
+.proj-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.75rem;}
+.proj-card{background:#fff;border:1px solid rgba(24,40,30,.08);cursor:pointer;overflow:hidden;transition:transform .3s,box-shadow .3s;}
+.proj-card:hover{transform:translateY(-5px);box-shadow:0 18px 44px rgba(24,40,30,.13);}
+/* Carousel */
+.carousel{position:relative;height:260px;overflow:hidden;background:#f1eee6;}
+.car-track{display:flex;height:100%;transition:transform .45s cubic-bezier(.4,0,.2,1);}
+.car-img{min-width:100%;height:100%;object-fit:cover;filter:grayscale(100%);transition:filter .5s;display:block;}
+.proj-card:hover .car-img{filter:grayscale(40%);}
+.car-btn{position:absolute;top:50%;transform:translateY(-50%);background:rgba(24,40,30,.6);color:#fcf9f1;border:none;width:34px;height:34px;display:flex;align-items:center;justify-content:center;cursor:pointer;z-index:5;font-size:1.25rem;line-height:1;opacity:0;transition:opacity .2s;}
+.carousel:hover .car-btn{opacity:1;}
+.car-prev{left:10px;}.car-next{right:10px;}
+.car-dots{position:absolute;bottom:10px;left:50%;transform:translateX(-50%);display:flex;gap:5px;z-index:5;}
+.car-dot{width:6px;height:6px;border-radius:50%;background:rgba(252,249,241,.45);transition:background .25s;cursor:pointer;}
+.car-dot.on{background:#fcf9f1;}
+/* Card info */
+.proj-info{padding:1.4rem 1.6rem 1.6rem;}
+.proj-tag{font-family:"Manrope",sans-serif;text-transform:uppercase;letter-spacing:.1em;font-size:.6rem;font-weight:600;color:#6b8a72;margin-bottom:.45rem;}
+.proj-title-card{font-family:"Newsreader",serif;font-size:1.4rem;color:#1c1c17;line-height:1.15;margin-bottom:1rem;}
+.proj-meta{display:grid;grid-template-columns:1fr 1fr 1fr;gap:.5rem;border-top:1px solid rgba(24,40,30,.08);padding-top:.9rem;}
+.pm-label{display:block;font-family:"Manrope",sans-serif;text-transform:uppercase;letter-spacing:.09em;font-size:.53rem;font-weight:600;color:#9aaf9e;margin-bottom:.2rem;}
+.pm-val{font-family:"Manrope",sans-serif;font-size:.78rem;font-weight:700;color:#1c1c17;}
 
 /* ── CAPABILITIES ── */
 #capabilities{background:#f6f3eb;}
@@ -174,8 +185,15 @@ footer{background:#18281e;color:#fcf9f1;padding:4.5rem 4rem 0;}
 #modal-card{background:#fcf9f1;max-width:42rem;width:100%;transform:scale(.94);transition:transform .32s;}
 #modal.on #modal-card{transform:scale(1);}
 #modal-photo{height:17rem;position:relative;overflow:hidden;background:#f1eee6;}
-#modal-photo img{width:100%;height:100%;object-fit:cover;filter:grayscale(70%);display:block;}
-#modal-photo-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(24,40,30,.75),transparent);display:flex;flex-direction:column;justify-content:flex-end;padding:1.75rem 2rem;}
+#modal-car-track{display:flex;height:100%;transition:transform .45s cubic-bezier(.4,0,.2,1);}
+#modal-car-track img{min-width:100%;height:100%;object-fit:cover;filter:grayscale(70%);display:block;}
+#modal-photo-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(24,40,30,.75),transparent);display:flex;flex-direction:column;justify-content:flex-end;padding:1.75rem 2rem;pointer-events:none;}
+.mcar-btn{position:absolute;top:50%;transform:translateY(-50%);background:rgba(24,40,30,.6);color:#fcf9f1;border:none;width:36px;height:36px;display:flex;align-items:center;justify-content:center;cursor:pointer;z-index:10;font-size:1.3rem;line-height:1;transition:background .2s;}
+.mcar-btn:hover{background:rgba(24,40,30,.85);}
+.mcar-prev{left:12px;}.mcar-next{right:12px;}
+#modal-car-dots{position:absolute;bottom:14px;right:16px;display:flex;gap:5px;z-index:10;}
+#modal-car-dots span{width:6px;height:6px;border-radius:50%;background:rgba(252,249,241,.45);cursor:pointer;transition:background .25s;}
+#modal-car-dots span.on{background:#fcf9f1;}
 #modal-tag{font-family:"Manrope",sans-serif;text-transform:uppercase;letter-spacing:.1em;font-size:.62rem;font-weight:600;color:#b8cbbc;margin-bottom:.4rem;}
 #modal-title{font-family:"Newsreader",serif;font-size:1.9rem;color:#fcf9f1;}
 #modal-body{padding:2rem 2.25rem 2.25rem;}
@@ -208,6 +226,7 @@ footer{background:#18281e;color:#fcf9f1;padding:4.5rem 4rem 0;}
 
 /* ── RESPONSIVE ── */
 @media(max-width:900px){
+  .proj-grid{grid-template-columns:1fr 1fr;gap:1rem;}
   #nav{padding:1rem 1.5rem;}
   #nav-links{display:none;}
   #quote-btn{display:none;}
@@ -243,7 +262,10 @@ footer{background:#18281e;color:#fcf9f1;padding:4.5rem 4rem 0;}
 <div id="modal">
   <div id="modal-card">
     <div id="modal-photo">
-      <img id="modal-img" src="" alt=""/>
+      <div id="modal-car-track"></div>
+      <button class="mcar-btn mcar-prev" onclick="mcarMove(-1)">&#8249;</button>
+      <button class="mcar-btn mcar-next" onclick="mcarMove(1)">&#8250;</button>
+      <div id="modal-car-dots"></div>
       <div id="modal-photo-overlay">
         <div id="modal-tag"></div>
         <div id="modal-title"></div>
@@ -261,7 +283,7 @@ footer{background:#18281e;color:#fcf9f1;padding:4.5rem 4rem 0;}
 
 <!-- NAV -->
 <nav id="nav">
-  <span onclick="goTo('hero')" style="font-family:'Newsreader',serif;font-size:1.5rem;font-weight:700;color:#18281e;cursor:pointer;letter-spacing:-.01em;">CEK</span>
+  <img src="logo.png" alt="CEK Group" onclick="goTo('hero')" style="height:96px;cursor:pointer;display:block;" />
   <div id="nav-links" style="display:flex;gap:2.25rem;align-items:center;">
     <a class="nl" onclick="goTo('projects')">Portfolio</a>
     <a class="nl" onclick="goTo('capabilities')">Services</a>
@@ -290,7 +312,7 @@ footer{background:#18281e;color:#fcf9f1;padding:4.5rem 4rem 0;}
   <div id="hero-bg"></div>
   <div class="hero-inner rv">
     <p class="label hero-eyebrow">Established 1994</p>
-    <h1 class="hero-h1">Architectural Integrity.<br>Absolute Precision.</h1>
+    <h1 class="hero-h1">Engineered Integrity.<br>Absolute Precision.</h1>
     <p class="hero-sub">Executive oversight for high-value infrastructure and long-term asset preservation.</p>
     <div class="hero-btns">
       <button class="btn-primary" onclick="goTo('projects')">View Portfolio</button>
@@ -319,29 +341,116 @@ footer{background:#18281e;color:#fcf9f1;padding:4.5rem 4rem 0;}
       </div>
       <a class="label" onclick="toast('Full portfolio archive — coming soon.')" style="font-size:.72rem;border-bottom:1px solid rgba(24,40,30,.2);padding-bottom:4px;cursor:pointer;color:#18281e;">All Projects</a>
     </div>
-    <div class="collage">
-      <div class="pc rv" style="grid-column:span 8;grid-row:span 2;" onclick="openModal('img3','The Obsidian Tower','COMMERCIAL • 2023','A landmark 42-storey commercial tower in the London financial district. CEK provided full structural analysis, build oversight, and long-term facility management protocols ensuring structural integrity for decades.')">
-        <img id="pc-img3a" src="" alt="The Obsidian Tower"/>
-        <div class="pc-over"><p class="pc-cat">Commercial &bull; 2023</p><p class="pc-name serif" style="font-size:2.1rem;">The Obsidian Tower</p></div>
-        <div class="pc-base"><p class="pc-cat">Commercial &bull; 2023</p><p class="pc-name serif" style="font-size:1.4rem;">The Obsidian Tower</p></div>
-      </div>
-      <div class="pc rv rd1" style="grid-column:span 4;grid-row:span 1;" onclick="openModal('img1','Azure Cliff Estate','RESIDENTIAL • 2022','A clifftop residential compound featuring post-tension concrete terraces, full seismic isolation, and a bespoke drainage system engineered for harsh coastal exposure.')">
-        <img id="pc-img1a" src="" alt="Azure Cliff Estate"/>
-        <div class="pc-over"><p class="pc-cat">Residential &bull; 2022</p><p class="pc-name serif" style="font-size:1.5rem;">Azure Cliff Estate</p></div>
-        <div class="pc-base"><p class="pc-cat">Residential &bull; 2022</p><p class="pc-name serif" style="font-size:1.1rem;">Azure Cliff Estate</p></div>
-      </div>
-      <div style="grid-column:span 4;grid-row:span 1;display:grid;grid-template-columns:1fr 1fr;gap:.75rem;" class="rv rd2">
-        <div class="pc" onclick="openModal('img2','Nebula Data Hub','INFRASTRUCTURE • 2023','A tier-4 data centre in Manchester requiring specialised raised-floor structural design, vibration isolation, and EMF-shielded civil works.')">
-          <img id="pc-img2a" src="" alt="Nebula Data Hub"/>
-          <div class="pc-over"><p class="pc-name serif" style="font-size:1.2rem;">Nebula Hub</p></div>
-          <div class="pc-base"><p class="pc-name serif" style="font-size:.9rem;">Nebula Hub</p></div>
+    <div class="proj-grid">
+
+      <!-- Card 1: The Obsidian Tower -->
+      <div class="proj-card rv" onclick="openModal(['img3','img1','img2'],'The Obsidian Tower','COMMERCIAL • 2023','A landmark 42-storey commercial tower in the London financial district. CEK provided full structural analysis, build oversight, and long-term facility management protocols ensuring structural integrity for decades.')">
+        <div class="carousel">
+          <div class="car-track" id="car-track-0">
+            <img class="car-img" id="pci-0-0" src="" alt="The Obsidian Tower"/>
+            <img class="car-img" id="pci-0-1" src="" alt="The Obsidian Tower — Detail"/>
+            <img class="car-img" id="pci-0-2" src="" alt="The Obsidian Tower — Interior"/>
+          </div>
+          <button class="car-btn car-prev" onclick="event.stopPropagation();carMove(0,-1)">&#8249;</button>
+          <button class="car-btn car-next" onclick="event.stopPropagation();carMove(0,1)">&#8250;</button>
+          <div class="car-dots" id="car-dots-0">
+            <span class="car-dot on" onclick="event.stopPropagation();carGo(0,0)"></span>
+            <span class="car-dot" onclick="event.stopPropagation();carGo(0,1)"></span>
+            <span class="car-dot" onclick="event.stopPropagation();carGo(0,2)"></span>
+          </div>
         </div>
-        <div class="pc" onclick="openModal('img1','Sector Alpha','INDUSTRIAL • 2021','A 120,000 sqm heavy industrial facility for petrochemical processing. CEK engineered the structural frame, foundation raft, and long-term integrity monitoring systems.')">
-          <img id="pc-img1b" src="" alt="Sector Alpha"/>
-          <div class="pc-over"><p class="pc-name serif" style="font-size:1.2rem;">Sector Alpha</p></div>
-          <div class="pc-base"><p class="pc-name serif" style="font-size:.9rem;">Sector Alpha</p></div>
+        <div class="proj-info">
+          <p class="proj-tag">Commercial &bull; 2023</p>
+          <p class="proj-title-card">The Obsidian Tower</p>
+          <div class="proj-meta">
+            <div><span class="pm-label">Value</span><span class="pm-val">$340M</span></div>
+            <div><span class="pm-label">Location</span><span class="pm-val">London, UK</span></div>
+            <div><span class="pm-label">Client</span><span class="pm-val">Meridian Capital</span></div>
+          </div>
         </div>
       </div>
+
+      <!-- Card 2: Azure Cliff Estate -->
+      <div class="proj-card rv rd1" onclick="openModal(['img1','img2','img3'],'Azure Cliff Estate','RESIDENTIAL • 2022','A clifftop residential compound featuring post-tension concrete terraces, full seismic isolation, and a bespoke drainage system engineered for harsh coastal exposure.')">
+        <div class="carousel">
+          <div class="car-track" id="car-track-1">
+            <img class="car-img" id="pci-1-0" src="" alt="Azure Cliff Estate"/>
+            <img class="car-img" id="pci-1-1" src="" alt="Azure Cliff Estate — View"/>
+            <img class="car-img" id="pci-1-2" src="" alt="Azure Cliff Estate — Terrace"/>
+          </div>
+          <button class="car-btn car-prev" onclick="event.stopPropagation();carMove(1,-1)">&#8249;</button>
+          <button class="car-btn car-next" onclick="event.stopPropagation();carMove(1,1)">&#8250;</button>
+          <div class="car-dots" id="car-dots-1">
+            <span class="car-dot on" onclick="event.stopPropagation();carGo(1,0)"></span>
+            <span class="car-dot" onclick="event.stopPropagation();carGo(1,1)"></span>
+            <span class="car-dot" onclick="event.stopPropagation();carGo(1,2)"></span>
+          </div>
+        </div>
+        <div class="proj-info">
+          <p class="proj-tag">Residential &bull; 2022</p>
+          <p class="proj-title-card">Azure Cliff Estate</p>
+          <div class="proj-meta">
+            <div><span class="pm-label">Value</span><span class="pm-val">$85M</span></div>
+            <div><span class="pm-label">Location</span><span class="pm-val">Côte d'Azur</span></div>
+            <div><span class="pm-label">Client</span><span class="pm-val">Private</span></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 3: Nebula Data Hub -->
+      <div class="proj-card rv rd2" onclick="openModal(['img2','img3','img1'],'Nebula Data Hub','INFRASTRUCTURE • 2023','A tier-4 data centre in Manchester requiring specialised raised-floor structural design, vibration isolation, and EMF-shielded civil works.')">
+        <div class="carousel">
+          <div class="car-track" id="car-track-2">
+            <img class="car-img" id="pci-2-0" src="" alt="Nebula Data Hub"/>
+            <img class="car-img" id="pci-2-1" src="" alt="Nebula Data Hub — Interior"/>
+            <img class="car-img" id="pci-2-2" src="" alt="Nebula Data Hub — Facade"/>
+          </div>
+          <button class="car-btn car-prev" onclick="event.stopPropagation();carMove(2,-1)">&#8249;</button>
+          <button class="car-btn car-next" onclick="event.stopPropagation();carMove(2,1)">&#8250;</button>
+          <div class="car-dots" id="car-dots-2">
+            <span class="car-dot on" onclick="event.stopPropagation();carGo(2,0)"></span>
+            <span class="car-dot" onclick="event.stopPropagation();carGo(2,1)"></span>
+            <span class="car-dot" onclick="event.stopPropagation();carGo(2,2)"></span>
+          </div>
+        </div>
+        <div class="proj-info">
+          <p class="proj-tag">Infrastructure &bull; 2023</p>
+          <p class="proj-title-card">Nebula Data Hub</p>
+          <div class="proj-meta">
+            <div><span class="pm-label">Value</span><span class="pm-val">$120M</span></div>
+            <div><span class="pm-label">Location</span><span class="pm-val">Manchester, UK</span></div>
+            <div><span class="pm-label">Client</span><span class="pm-val">NebulaTech</span></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 4: Sector Alpha -->
+      <div class="proj-card rv rd3" onclick="openModal(['img1','img3','img2'],'Sector Alpha','INDUSTRIAL • 2021','A 120,000 sqm heavy industrial facility for petrochemical processing. CEK engineered the structural frame, foundation raft, and long-term integrity monitoring systems.')">
+        <div class="carousel">
+          <div class="car-track" id="car-track-3">
+            <img class="car-img" id="pci-3-0" src="" alt="Sector Alpha"/>
+            <img class="car-img" id="pci-3-1" src="" alt="Sector Alpha — Aerial"/>
+            <img class="car-img" id="pci-3-2" src="" alt="Sector Alpha — Structure"/>
+          </div>
+          <button class="car-btn car-prev" onclick="event.stopPropagation();carMove(3,-1)">&#8249;</button>
+          <button class="car-btn car-next" onclick="event.stopPropagation();carMove(3,1)">&#8250;</button>
+          <div class="car-dots" id="car-dots-3">
+            <span class="car-dot on" onclick="event.stopPropagation();carGo(3,0)"></span>
+            <span class="car-dot" onclick="event.stopPropagation();carGo(3,1)"></span>
+            <span class="car-dot" onclick="event.stopPropagation();carGo(3,2)"></span>
+          </div>
+        </div>
+        <div class="proj-info">
+          <p class="proj-tag">Industrial &bull; 2021</p>
+          <p class="proj-title-card">Sector Alpha</p>
+          <div class="proj-meta">
+            <div><span class="pm-label">Value</span><span class="pm-val">$210M</span></div>
+            <div><span class="pm-label">Location</span><span class="pm-val">Dubai, UAE</span></div>
+            <div><span class="pm-label">Client</span><span class="pm-val">Gulf Energy</span></div>
+          </div>
+        </div>
+      </div>
+
     </div>
   </div>
 </section>
@@ -709,15 +818,36 @@ var IMGS = {
 function applyImages() {
   // Hero background
   document.getElementById("hero-bg").style.backgroundImage = "url('" + IMGS.img3 + "')";
-  // Project card images
-  ["img3a","img1a","img2a","img1b"].forEach(function(id) {
-    var key = id.replace(/[ab]$/, "");   // strip suffix → img3, img1, img2, img1
-    var el = document.getElementById("pc-" + id);
-    if(el) el.src = IMGS[key];
+  // Project carousel images — 4 cards × 3 slides each
+  var carImgs = [
+    ["img3","img1","img2"],   // Card 0: Obsidian Tower
+    ["img1","img2","img3"],   // Card 1: Azure Cliff Estate
+    ["img2","img3","img1"],   // Card 2: Nebula Data Hub
+    ["img1","img3","img2"]    // Card 3: Sector Alpha
+  ];
+  carImgs.forEach(function(slides, c) {
+    slides.forEach(function(key, s) {
+      var el = document.getElementById("pci-" + c + "-" + s);
+      if(el) el.src = IMGS[key] || "";
+    });
   });
   // Founder photo
   var fi = document.getElementById("founder-img");
   if(fi) fi.src = IMGS.elie;
+}
+
+/* ═══ CAROUSEL ═══ */
+var carState = [0,0,0,0];
+function carMove(id, dir) {
+  var n = document.getElementById("car-track-" + id).querySelectorAll(".car-img").length;
+  carGo(id, (carState[id] + dir + n) % n);
+}
+function carGo(id, idx) {
+  carState[id] = idx;
+  document.getElementById("car-track-" + id).style.transform = "translateX(-" + (idx * 100) + "%)";
+  document.getElementById("car-dots-" + id).querySelectorAll(".car-dot").forEach(function(d, i) {
+    d.classList.toggle("on", i === idx);
+  });
 }
 
 /* ═══ SCROLL ═══ */
@@ -799,13 +929,44 @@ function toast(msg, type) {
 }
 
 /* ═══ MODAL — uses IMGS[key], NOT inline base64 ═══ */
-function openModal(imgKey, title, tag, desc) {
-  document.getElementById("modal-img").src = IMGS[imgKey] || "";
+var mcarIdx = 0, mcarImgs = [];
+function openModal(imgs, title, tag, desc) {
+  mcarImgs = Array.isArray(imgs) ? imgs : [imgs];
+  mcarIdx = 0;
+  var track = document.getElementById("modal-car-track");
+  var dotsEl = document.getElementById("modal-car-dots");
+  track.innerHTML = "";
+  dotsEl.innerHTML = "";
+  mcarImgs.forEach(function(key, i) {
+    var img = document.createElement("img");
+    img.src = IMGS[key] || "";
+    img.alt = title;
+    track.appendChild(img);
+    var dot = document.createElement("span");
+    if(i === 0) dot.classList.add("on");
+    dot.onclick = function(e){ e.stopPropagation(); mcarGo(i); };
+    dotsEl.appendChild(dot);
+  });
+  track.style.transform = "translateX(0)";
+  // hide nav buttons if only one image
+  var btns = document.querySelectorAll(".mcar-btn");
+  btns.forEach(function(b){ b.style.display = mcarImgs.length > 1 ? "flex" : "none"; });
+  dotsEl.style.display = mcarImgs.length > 1 ? "flex" : "none";
   document.getElementById("modal-title").textContent = title;
   document.getElementById("modal-tag").textContent = tag;
   document.getElementById("modal-desc").textContent = desc;
   document.getElementById("modal").classList.add("on");
   document.body.style.overflow = "hidden";
+}
+function mcarMove(dir) {
+  mcarGo((mcarIdx + dir + mcarImgs.length) % mcarImgs.length);
+}
+function mcarGo(idx) {
+  mcarIdx = idx;
+  document.getElementById("modal-car-track").style.transform = "translateX(-" + (idx * 100) + "%)";
+  document.getElementById("modal-car-dots").querySelectorAll("span").forEach(function(d, i) {
+    d.classList.toggle("on", i === idx);
+  });
 }
 function closeModal() {
   document.getElementById("modal").classList.remove("on");

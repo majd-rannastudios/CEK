@@ -1,0 +1,16 @@
+{
+  "name": "CEK Group - Engineering & Design Excellence",
+  "short_name": "CEK Group",
+  "description": "Architectural Integrity. Absolute Precision. Executive oversight for high-value infrastructure and long-term asset preservation.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#fcf9f1",
+  "theme_color": "#18281e",
+  "icons": [
+    {
+      "src": "/favicon.ico",
+      "sizes": "32x32",
+      "type": "image/x-icon"
+    }
+  ]
+}
