@@ -1222,6 +1222,21 @@ footer {
   padding: 2rem 2.25rem 2.25rem;
 }
 
+.modal-meta {
+  display: flex;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+  margin-bottom: 1.25rem;
+  padding-bottom: 1.25rem;
+  border-bottom: 1px solid rgba(24,40,30,.1);
+}
+
+.modal-meta > div {
+  display: flex;
+  flex-direction: column;
+  gap: .25rem;
+}
+
 #modal-desc {
   color: #434844;
   font-size: .88rem;

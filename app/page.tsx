@@ -8,6 +8,7 @@ export default function Home() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [currentProject, setCurrentProject] = useState<any>(null);
+  const [modalImageIndex, setModalImageIndex] = useState(0);
   const [toastMessage, setToastMessage] = useState('');
   const [showBackToTop, setShowBackToTop] = useState(false);
   const [visibleProjectsCount, setVisibleProjectsCount] = useState(4);
@@ -69,14 +70,26 @@ export default function Home() {
     setIsMobileMenuOpen(false);
   };
 
-  const openModal = (images: string[], title: string, tag: string, description: string) => {
-    setCurrentProject({ images, title, tag, description });
+  const openModal = (project: any) => {
+    setCurrentProject(project);
+    setModalImageIndex(0);
     setIsModalOpen(true);
   };
 
   const closeModal = () => {
     setIsModalOpen(false);
     setCurrentProject(null);
+    setModalImageIndex(0);
+  };
+
+  const modalNext = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    setModalImageIndex(i => (i + 1) % currentProject.images.length);
+  };
+
+  const modalPrev = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    setModalImageIndex(i => (i - 1 + currentProject.images.length) % currentProject.images.length);
   };
 
   const showToast = (message: string) => {
@@ -87,44 +100,59 @@ export default function Home() {
   const projects = [
     {
       id: 1,
-      images: ['/projects/obsidian-1.jpg', '/projects/obsidian-2.jpg', '/projects/obsidian-3.jpg'],
-      title: 'The Obsidian Tower',
-      tag: 'COMMERCIAL • 2023',
-      description: 'A landmark 42-storey commercial tower in the London financial district. CEK provided full structural analysis, build oversight, and long-term facility management protocols ensuring structural integrity for decades.',
-      value: '$2.1B',
-      location: 'London, UK',
-      client: 'Obsidian Group'
+      images: Array.from({ length: 22 }, (_, i) => `/projects/auto-alliance-${i + 1}.jpeg`),
+      title: 'Automotive Alliances Workshop',
+      tag: 'INDUSTRIAL • 2024',
+      type: 'Car Service Workshop',
+      client: 'Kettaneh Group & ANB Holding',
+      duration: '8 Months',
+      description: 'Transformation of an underground parking into a fully equipped automotive workshop, including ventilation, fire protection, CCTV, epoxy flooring, and specialized areas for repair, spray booths, and car services, along with a customer reception showroom above.',
+      unoptimized: false,
     },
     {
       id: 2,
-      images: ['/projects/heritage-1.jpg', '/projects/heritage-2.jpg', '/projects/heritage-3.jpg'],
-      title: 'Heritage Plaza',
-      tag: 'MIXED-USE • 2022',
-      description: 'A 28-storey mixed-use development combining premium residential units with commercial spaces. CEK engineered the complex foundation system and integrated MEP infrastructure.',
-      value: '$890M',
-      location: 'Dubai, UAE',
-      client: 'Heritage Developments'
+      images: Array.from({ length: 11 }, (_, i) => `/projects/e-motorshow-${i + 1}.jpeg`),
+      title: 'E-Motorshow Middle East 2024',
+      tag: 'AUTOMOTIVE • 2024',
+      type: 'Automotive Exhibition',
+      client: 'AN Boukather',
+      duration: '1 Month',
+      description: "Fit-out and preparation of Mazda's exhibition space at the Middle East Motor Show, including flooring, ceiling, lighting, branding, digital displays, reception, and interactive areas.",
+      unoptimized: false,
     },
     {
       id: 3,
-      images: ['/projects/datahub-1.jpg', '/projects/datahub-2.jpg', '/projects/datahub-3.jpg'],
-      title: 'Nebula Data Hub',
-      tag: 'INFRASTRUCTURE • 2023',
-      description: 'A tier-4 data centre in Manchester requiring specialised raised-floor structural design, vibration isolation, and EMF-shielded civil works.',
-      value: '$120M',
-      location: 'Manchester, UK',
-      client: 'NebulaTech'
+      images: Array.from({ length: 21 }, (_, i) => `/projects/sahel-alma-${i + 1}.jpeg`),
+      title: 'Sahel Alma Notre Dame School',
+      tag: 'WATERPROOFING • 2024',
+      type: 'School',
+      client: 'Ecole Notre Dame de Sahel Alma Sisters',
+      duration: '1 Month',
+      description: 'Complete roof waterproofing works for a school building, including surface preparation, slope correction, and application of a two-layer membrane system with full detailing around tanks, columns, and drainage points.',
+      unoptimized: false,
     },
     {
       id: 4,
-      images: ['/projects/sector-1.jpg', '/projects/sector-2.jpg', '/projects/sector-3.jpg'],
-      title: 'Sector Alpha',
-      tag: 'INDUSTRIAL • 2021',
-      description: 'A 120,000 sqm heavy industrial facility for petrochemical processing. CEK engineered the structural frame, foundation raft, and long-term integrity monitoring systems.',
-      value: '$210M',
-      location: 'Dubai, UAE',
-      client: 'Gulf Energy'
-    }
+      images: Array.from({ length: 9 }, (_, i) => `/projects/solar-${i + 1}.heic`),
+      title: 'Bekaa Valley Solar System',
+      tag: 'ENERGY • 2024',
+      type: 'Solar Energy (Agriculture Use)',
+      client: 'Twins Agri',
+      duration: '4 Months',
+      description: 'Design and execution of a solar-powered water pumping system in the Bekaa, including installation of 300 panels on a steel structure, civil works for foundations, and full system sizing with automated operation for irrigation purposes.',
+      unoptimized: true,
+    },
+    {
+      id: 5,
+      images: Array.from({ length: 29 }, (_, i) => `/projects/maison-nazareth-${i + 1}.jpeg`),
+      title: 'Maison Nazareth',
+      tag: 'HOSPITALITY • 2024',
+      type: 'Hospitality Conversion (Hotel)',
+      client: 'Congregation of the Sisters of the Holy Family',
+      duration: '6 Months',
+      description: 'Transformation of a former school into a 45-room hotel, including full architectural redesign, MEP systems, and complete interior fit-out, while preserving the existing structure.',
+      unoptimized: false,
+    },
   ];
 
   return (
@@ -138,10 +166,13 @@ export default function Home() {
 
       {/* Modal */}
       {isModalOpen && currentProject && (
-        <div id="modal" className="on">
-          <div id="modal-card">
+        <div id="modal" className="on" onClick={closeModal}>
+          <div id="modal-card" onClick={e => e.stopPropagation()}>
             <div id="modal-photo">
-              <div id="modal-car-track">
+              <div
+                id="modal-car-track"
+                style={{ transform: `translateX(-${modalImageIndex * 100}%)` }}
+              >
                 {currentProject.images.map((img: string, index: number) => (
                   <Image
                     key={index}
@@ -151,15 +182,36 @@ export default function Home() {
                     height={400}
                     sizes="(max-width: 900px) 100vw, 800px"
                     style={{ minWidth: '100%', height: '100%', objectFit: 'cover' }}
+                    unoptimized={currentProject.unoptimized}
                   />
                 ))}
               </div>
+              {currentProject.images.length > 1 && (
+                <>
+                  <button className="mcar-btn mcar-prev" onClick={modalPrev}>&#8249;</button>
+                  <button className="mcar-btn mcar-next" onClick={modalNext}>&#8250;</button>
+                  <div id="modal-car-dots">
+                    {currentProject.images.map((_: string, i: number) => (
+                      <span
+                        key={i}
+                        className={i === modalImageIndex ? 'on' : ''}
+                        onClick={e => { e.stopPropagation(); setModalImageIndex(i); }}
+                      />
+                    ))}
+                  </div>
+                </>
+              )}
               <div id="modal-photo-overlay">
                 <div id="modal-tag">{currentProject.tag}</div>
                 <div id="modal-title">{currentProject.title}</div>
               </div>
             </div>
             <div id="modal-body">
+              <div className="modal-meta">
+                <div><span className="pm-label">Type</span><span className="pm-val">{currentProject.type}</span></div>
+                <div><span className="pm-label">Client</span><span className="pm-val">{currentProject.client}</span></div>
+                <div><span className="pm-label">Duration</span><span className="pm-val">{currentProject.duration}</span></div>
+              </div>
               <p id="modal-desc">{currentProject.description}</p>
               <div className="modal-btns">
                 <button id="modal-close" onClick={closeModal}>Close</button>
@@ -216,9 +268,9 @@ export default function Home() {
       <header id="hero">
         <div id="hero-bg"></div>
         <div className="hero-inner rv">
-          <p className="label hero-eyebrow">Established 1994</p>
-          <h1 className="hero-h1">Engineered Integrity.<br />Absolute Precision.</h1>
-          <p className="hero-sub">Executive oversight for high-value infrastructure and long-term asset preservation.</p>
+          <p className="label hero-eyebrow">CEK Group LLC — Established 1994</p>
+          <h1 className="hero-h1">You Imagine It.<br />We Engineer It.</h1>
+          <p className="hero-sub">A multidisciplinary engineering firm delivering end-to-end solutions — from concept and design to execution, maintenance, and facility management.</p>
           <div className="hero-btns">
             <button className="btn-primary" onClick={() => scrollToSection('projects')}>View Portfolio</button>
             <button className="btn-outline" onClick={() => scrollToSection('contact')}>Book A Free Consultation</button>
@@ -263,7 +315,7 @@ export default function Home() {
               <div
                 key={project.id}
                 className="proj-card rv"
-                onClick={() => openModal(project.images, project.title, project.tag, project.description)}
+                onClick={() => openModal(project)}
               >
                 <div className="carousel">
                   <div className="car-track">
@@ -274,6 +326,7 @@ export default function Home() {
                       height={260}
                       sizes="(max-width: 900px) 100vw, (max-width: 1200px) 50vw, 400px"
                       style={{ minWidth: '100%', height: '100%', objectFit: 'cover' }}
+                      unoptimized={project.unoptimized}
                     />
                   </div>
                 </div>
@@ -281,9 +334,9 @@ export default function Home() {
                   <p className="proj-tag">{project.tag}</p>
                   <p className="proj-title-card">{project.title}</p>
                   <div className="proj-meta">
-                    <div><span className="pm-label">Value</span><span className="pm-val">{project.value}</span></div>
-                    <div><span className="pm-label">Location</span><span className="pm-val">{project.location}</span></div>
+                    <div><span className="pm-label">Type</span><span className="pm-val">{project.type}</span></div>
                     <div><span className="pm-label">Client</span><span className="pm-val">{project.client}</span></div>
+                    <div><span className="pm-label">Duration</span><span className="pm-val">{project.duration}</span></div>
                   </div>
                 </div>
               </div>
@@ -308,96 +361,46 @@ export default function Home() {
         <div className="sec-inner">
           <div className="sec-header rv">
             <div>
-              <p className="label sec-eyebrow">Capabilities</p>
-              <h2 className="sec-h2">Engineering Services</h2>
+              <p className="label sec-eyebrow">What We Do</p>
+              <h2 className="sec-h2">Our Services</h2>
             </div>
           </div>
           <div className="caps-grid">
             <details className="cap-item rv">
               <summary>
                 <div className="cap-head">
-                  <span className="material-symbols-outlined cap-icon">engineering</span>
-                  <h3 className="serif cap-title">Build Management</h3>
+                  <span className="material-symbols-outlined cap-icon">architecture</span>
+                  <h3 className="serif cap-title">A — Engineering &amp; Design</h3>
                 </div>
                 <span className="material-symbols-outlined xi">add</span>
               </summary>
               <div className="cap-body">
-                <p className="cap-desc">Comprehensive project management from concept to completion, ensuring quality and timeline adherence.</p>
+                <p className="cap-desc">From initial concept to construction-ready drawings — precision engineering across every discipline.</p>
                 <ul className="cap-list">
-                  <li><span className="dot"></span>Project Planning</li>
-                  <li><span className="dot"></span>Quality Control</li>
-                  <li><span className="dot"></span>Risk Management</li>
-                  <li><span className="dot"></span>Timeline Optimization</li>
+                  <li><span className="dot"></span>Architectural Design (concept → detailed drawings)</li>
+                  <li><span className="dot"></span>Structural Engineering</li>
+                  <li><span className="dot"></span>MEP Design (Mechanical, Electrical, Plumbing)</li>
+                  <li><span className="dot"></span>3D Visualization &amp; Rendering</li>
+                  <li><span className="dot"></span>BOQ &amp; Specifications</li>
                 </ul>
               </div>
             </details>
 
             <details className="cap-item rv rd1">
-              <summary>
-                <div className="cap-head">
-                  <span className="material-symbols-outlined cap-icon">business_center</span>
-                  <h3 className="serif cap-title">Facility Management</h3>
-                </div>
-                <span className="material-symbols-outlined xi">add</span>
-              </summary>
-              <div className="cap-body">
-                <p className="cap-desc">Long-term maintenance and optimization of built assets to maximize lifespan and performance.</p>
-                <ul className="cap-list">
-                  <li><span className="dot"></span>Asset Monitoring</li>
-                  <li><span className="dot"></span>Preventive Maintenance</li>
-                  <li><span className="dot"></span>Performance Optimization</li>
-                  <li><span className="dot"></span>Regulatory Compliance</li>
-                </ul>
-              </div>
-            </details>
-
-            <details className="cap-item rv rd2">
               <summary>
                 <div className="cap-head">
                   <span className="material-symbols-outlined cap-icon">construction</span>
-                  <h3 className="serif cap-title">Civil Construction</h3>
+                  <h3 className="serif cap-title">B — Construction &amp; Execution</h3>
                 </div>
                 <span className="material-symbols-outlined xi">add</span>
               </summary>
               <div className="cap-body">
-                <p className="cap-desc">Handling the most demanding structural challenges across diverse build frameworks.</p>
+                <p className="cap-desc">Turn-key project delivery with hands-on site management, from ground-break to handover.</p>
                 <ul className="cap-list">
-                  <li><span className="dot"></span>Structural Engineering</li>
-                  <li><span className="dot"></span>Bespoke Finishes</li>
-                </ul>
-              </div>
-            </details>
-
-            <details className="cap-item rv">
-              <summary>
-                <div className="cap-head">
-                  <span className="material-symbols-outlined cap-icon">architecture</span>
-                  <h3 className="serif cap-title">Structural Analysis</h3>
-                </div>
-                <span className="material-symbols-outlined xi">add</span>
-              </summary>
-              <div className="cap-body">
-                <p className="cap-desc">Deep forensic analysis of existing structures to ensure longevity and safety.</p>
-                <ul className="cap-list">
-                  <li><span className="dot"></span>Load Assessment</li>
-                  <li><span className="dot"></span>Retrofitting Design</li>
-                </ul>
-              </div>
-            </details>
-
-            <details className="cap-item rv rd1">
-              <summary>
-                <div className="cap-head">
-                  <span className="material-symbols-outlined cap-icon">precision_manufacturing</span>
-                  <h3 className="serif cap-title">Industrial Design</h3>
-                </div>
-                <span className="material-symbols-outlined xi">add</span>
-              </summary>
-              <div className="cap-body">
-                <p className="cap-desc">Specialized engineering for manufacturing plants and heavy-load processing facilities.</p>
-                <ul className="cap-list">
-                  <li><span className="dot"></span>Workflow Optimization</li>
-                  <li><span className="dot"></span>Vibration Control</li>
+                  <li><span className="dot"></span>Turnkey Projects (design &amp; build)</li>
+                  <li><span className="dot"></span>Renovation &amp; Fit-Out</li>
+                  <li><span className="dot"></span>Site Supervision &amp; Project Management</li>
+                  <li><span className="dot"></span>Contractor Coordination</li>
                 </ul>
               </div>
             </details>
@@ -405,16 +408,39 @@ export default function Home() {
             <details className="cap-item rv rd2">
               <summary>
                 <div className="cap-head">
-                  <span className="material-symbols-outlined cap-icon">eco</span>
-                  <h3 className="serif cap-title">Sustainable Assets</h3>
+                  <span className="material-symbols-outlined cap-icon">business_center</span>
+                  <h3 className="serif cap-title">C — Facility Management &amp; Maintenance</h3>
                 </div>
                 <span className="material-symbols-outlined xi">add</span>
               </summary>
               <div className="cap-body">
-                <p className="cap-desc">Green engineering solutions that reduce environmental impact while maintaining structural integrity.</p>
+                <p className="cap-desc">Long-term care of built assets to maximize lifespan, performance, and occupant safety.</p>
                 <ul className="cap-list">
-                  <li><span className="dot"></span>Energy Optimization</li>
-                  <li><span className="dot"></span>Material Efficiency</li>
+                  <li><span className="dot"></span>Preventive &amp; Corrective Maintenance</li>
+                  <li><span className="dot"></span>Facility Audits</li>
+                  <li><span className="dot"></span>MEP Troubleshooting</li>
+                  <li><span className="dot"></span>Long-Term Service Contracts</li>
+                  <li><span className="dot"></span>Emergency Interventions</li>
+                </ul>
+              </div>
+            </details>
+
+            <details className="cap-item rv rd3">
+              <summary>
+                <div className="cap-head">
+                  <span className="material-symbols-outlined cap-icon">analytics</span>
+                  <h3 className="serif cap-title">D — Consulting &amp; Advisory</h3>
+                </div>
+                <span className="material-symbols-outlined xi">add</span>
+              </summary>
+              <div className="cap-body">
+                <p className="cap-desc">Strategic guidance at every stage — from feasibility to value engineering and owner representation.</p>
+                <ul className="cap-list">
+                  <li><span className="dot"></span>Feasibility Studies</li>
+                  <li><span className="dot"></span>Cost Estimation &amp; Budgeting</li>
+                  <li><span className="dot"></span>Technical Audits</li>
+                  <li><span className="dot"></span>Value Engineering</li>
+                  <li><span className="dot"></span>Owner Representation</li>
                 </ul>
               </div>
             </details>
