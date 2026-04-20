@@ -72,11 +72,13 @@ export default function Home() {
   const openModal = (project: any) => {
     setCurrentProject(project);
     setIsModalOpen(true);
+    document.body.style.overflow = 'hidden';
   };
 
   const closeModal = () => {
     setIsModalOpen(false);
     setCurrentProject(null);
+    document.body.style.overflow = '';
   };
 
   const showToast = (message: string) => {

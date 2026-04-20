@@ -1493,4 +1493,10 @@ footer {
   #stats {
     padding: 3rem 1.5rem;
   }
+
+  .btn-primary,
+  .btn-outline {
+    padding: .75rem 1.5rem;
+    font-size: .72rem;
+  }
 }
