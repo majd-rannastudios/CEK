@@ -121,14 +121,14 @@ export default function Home() {
     },
     {
       id: 4,
-      images: Array.from({ length: 9 }, (_, i) => `/projects/solar-${i + 1}.heic`),
+      images: Array.from({ length: 9 }, (_, i) => `/projects/solar-${i + 1}.jpeg`),
       title: 'Bekaa Valley Solar System',
       tag: 'ENERGY • 2024',
       type: 'Solar Energy (Agriculture Use)',
       client: 'Twins Agri',
       duration: '4 Months',
       description: 'Design and execution of a solar-powered water pumping system in the Bekaa, including installation of 300 panels on a steel structure, civil works for foundations, and full system sizing with automated operation for irrigation purposes.',
-      unoptimized: true,
+      unoptimized: false,
     },
     {
       id: 5,
@@ -231,7 +231,10 @@ export default function Home() {
 
       {/* Hero */}
       <header id="hero">
-        <div id="hero-bg"></div>
+        <div id="hero-bg">
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img src="/hero-solar.jpeg" alt="" aria-hidden="true" id="hero-bg-img" />
+        </div>
         <div className="hero-inner rv">
           <p className="label hero-eyebrow">CEK Group LLC — Established 1994</p>
           <h1 className="hero-h1">You Imagine It.<br />We Engineer It.</h1>
@@ -335,7 +338,7 @@ export default function Home() {
               <summary>
                 <div className="cap-head">
                   <span className="material-symbols-outlined cap-icon">architecture</span>
-                  <h3 className="serif cap-title">A — Engineering &amp; Design</h3>
+                  <h3 className="serif cap-title">Engineering &amp; Design</h3>
                 </div>
                 <span className="material-symbols-outlined xi">add</span>
               </summary>
@@ -355,7 +358,7 @@ export default function Home() {
               <summary>
                 <div className="cap-head">
                   <span className="material-symbols-outlined cap-icon">construction</span>
-                  <h3 className="serif cap-title">B — Construction &amp; Execution</h3>
+                  <h3 className="serif cap-title">Construction &amp; Execution</h3>
                 </div>
                 <span className="material-symbols-outlined xi">add</span>
               </summary>
@@ -374,7 +377,7 @@ export default function Home() {
               <summary>
                 <div className="cap-head">
                   <span className="material-symbols-outlined cap-icon">business_center</span>
-                  <h3 className="serif cap-title">C — Facility Management &amp; Maintenance</h3>
+                  <h3 className="serif cap-title">Facility Management &amp; Maintenance</h3>
                 </div>
                 <span className="material-symbols-outlined xi">add</span>
               </summary>
@@ -394,7 +397,7 @@ export default function Home() {
               <summary>
                 <div className="cap-head">
                   <span className="material-symbols-outlined cap-icon">analytics</span>
-                  <h3 className="serif cap-title">D — Consulting &amp; Advisory</h3>
+                  <h3 className="serif cap-title">Consulting &amp; Advisory</h3>
                 </div>
                 <span className="material-symbols-outlined xi">add</span>
               </summary>
