@@ -250,77 +250,21 @@ export default function Home() {
       <section id="stats">
         <div className="stats-grid">
           <div className="rv">
-            <div className="sn" data-t="30" data-p="" data-s="">30</div>
+            <div className="sn" data-t="10" data-p="" data-s="">10</div>
             <p className="label" style={{ color: '#434844', marginTop: '.5rem', fontSize: '.65rem' }}>Years of Excellence</p>
           </div>
           <div className="rv rd1">
-            <div className="sn" data-t="2" data-p="$" data-s="B+">$2B+</div>
+            <div className="sn" data-t="300" data-p="$" data-s="M+">$300M+</div>
             <p className="label" style={{ color: '#434844', marginTop: '.5rem', fontSize: '.65rem' }}>Asset Value Managed</p>
           </div>
           <div className="rv rd2">
-            <div className="sn" data-t="400" data-p="" data-s="+">400+</div>
+            <div className="sn" data-t="200" data-p="" data-s="+">200+</div>
             <p className="label" style={{ color: '#434844', marginTop: '.5rem', fontSize: '.65rem' }}>Projects Completed</p>
           </div>
           <div className="rv rd3">
-            <div className="sn" data-t="18" data-p="" data-s="">18</div>
-            <p className="label" style={{ color: '#434844', marginTop: '.5rem', fontSize: '.65rem' }}>Countries Active</p>
+            <div className="sn" data-t="7" data-p="" data-s="">7</div>
+            <p className="label" style={{ color: '#434844', marginTop: '.5rem', fontSize: '.65rem' }}>Active Countries</p>
           </div>
-        </div>
-      </section>
-
-      {/* Projects */}
-      <section id="projects" className="sec">
-        <div className="sec-inner">
-          <div className="sec-header rv">
-            <div>
-              <p className="label sec-eyebrow">Archive</p>
-              <h2 className="sec-h2">Featured Projects</h2>
-            </div>
-            <a className="label" onClick={() => showToast('Full portfolio archive — coming soon.')} style={{ fontSize: '.72rem', borderBottom: '1px solid rgba(24, 40, 30, .2)', paddingBottom: '4px', cursor: 'pointer', color: '#18281e' }}>All Projects</a>
-          </div>
-          <div className="proj-grid">
-            {(isMobileBreakpoint ? projects.slice(0, visibleProjectsCount) : projects).map((project) => (
-              <div
-                key={project.id}
-                className="proj-card rv"
-                onClick={() => openModal(project)}
-              >
-                <div className="carousel">
-                  <div className="car-track">
-                    <Image
-                      src={project.images[0]}
-                      alt={project.title}
-                      width={400}
-                      height={260}
-                      sizes="(max-width: 900px) 100vw, (max-width: 1200px) 50vw, 400px"
-                      style={{ minWidth: '100%', height: '100%', objectFit: 'cover' }}
-                      unoptimized={project.unoptimized}
-                    />
-                  </div>
-                </div>
-                <div className="proj-info">
-                  <p className="proj-tag">{project.tag}</p>
-                  <p className="proj-title-card">{project.title}</p>
-                  <div className="proj-meta">
-                    <div><span className="pm-label">Type</span><span className="pm-val">{project.type}</span></div>
-                    <div><span className="pm-label">Client</span><span className="pm-val">{project.client}</span></div>
-                    <div><span className="pm-label">Duration</span><span className="pm-val">{project.duration}</span></div>
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-          {isMobileBreakpoint && visibleProjectsCount < projects.length && (
-            <div style={{ display: 'flex', justifyContent: 'center', marginTop: '2rem' }}>
-              <button
-                className="btn-primary"
-                style={{ minWidth: 'auto' }}
-                onClick={() => setVisibleProjectsCount((prev) => Math.min(prev + 4, projects.length))}
-              >
-                View More Projects
-              </button>
-            </div>
-          )}
         </div>
       </section>
 
@@ -413,6 +357,62 @@ export default function Home() {
               </div>
             </details>
           </div>
+        </div>
+      </section>
+
+      {/* Projects */}
+      <section id="projects" className="sec">
+        <div className="sec-inner">
+          <div className="sec-header rv">
+            <div>
+              <p className="label sec-eyebrow">Archive</p>
+              <h2 className="sec-h2">Featured Projects</h2>
+            </div>
+            <a className="label" onClick={() => showToast('Full portfolio archive — coming soon.')} style={{ fontSize: '.72rem', borderBottom: '1px solid rgba(24, 40, 30, .2)', paddingBottom: '4px', cursor: 'pointer', color: '#18281e' }}>All Projects</a>
+          </div>
+          <div className="proj-grid">
+            {(isMobileBreakpoint ? projects.slice(0, visibleProjectsCount) : projects).map((project) => (
+              <div
+                key={project.id}
+                className="proj-card rv"
+                onClick={() => openModal(project)}
+              >
+                <div className="carousel">
+                  <div className="car-track">
+                    <Image
+                      src={project.images[0]}
+                      alt={project.title}
+                      width={400}
+                      height={260}
+                      sizes="(max-width: 900px) 100vw, (max-width: 1200px) 50vw, 400px"
+                      style={{ minWidth: '100%', height: '100%', objectFit: 'cover' }}
+                      unoptimized={project.unoptimized}
+                    />
+                  </div>
+                </div>
+                <div className="proj-info">
+                  <p className="proj-tag">{project.tag}</p>
+                  <p className="proj-title-card">{project.title}</p>
+                  <div className="proj-meta">
+                    <div><span className="pm-label">Type</span><span className="pm-val">{project.type}</span></div>
+                    <div><span className="pm-label">Client</span><span className="pm-val">{project.client}</span></div>
+                    <div><span className="pm-label">Duration</span><span className="pm-val">{project.duration}</span></div>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+          {isMobileBreakpoint && visibleProjectsCount < projects.length && (
+            <div style={{ display: 'flex', justifyContent: 'center', marginTop: '2rem' }}>
+              <button
+                className="btn-primary"
+                style={{ minWidth: 'auto' }}
+                onClick={() => setVisibleProjectsCount((prev) => Math.min(prev + 4, projects.length))}
+              >
+                View More Projects
+              </button>
+            </div>
+          )}
         </div>
       </section>
 
