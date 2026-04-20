@@ -8,7 +8,6 @@ export default function Home() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [currentProject, setCurrentProject] = useState<any>(null);
-  const [modalImageIndex, setModalImageIndex] = useState(0);
   const [toastMessage, setToastMessage] = useState('');
   const [showBackToTop, setShowBackToTop] = useState(false);
   const [visibleProjectsCount, setVisibleProjectsCount] = useState(4);
@@ -72,24 +71,12 @@ export default function Home() {
 
   const openModal = (project: any) => {
     setCurrentProject(project);
-    setModalImageIndex(0);
     setIsModalOpen(true);
   };
 
   const closeModal = () => {
     setIsModalOpen(false);
     setCurrentProject(null);
-    setModalImageIndex(0);
-  };
-
-  const modalNext = (e: React.MouseEvent) => {
-    e.stopPropagation();
-    setModalImageIndex(i => (i + 1) % currentProject.images.length);
-  };
-
-  const modalPrev = (e: React.MouseEvent) => {
-    e.stopPropagation();
-    setModalImageIndex(i => (i - 1 + currentProject.images.length) % currentProject.images.length);
   };
 
   const showToast = (message: string) => {
@@ -100,7 +87,8 @@ export default function Home() {
   const projects = [
     {
       id: 1,
-      images: Array.from({ length: 22 }, (_, i) => `/projects/auto-alliance-${i + 1}.jpeg`),
+      // After & progress shots only — befores (2,7,10,19-22) excluded
+      images: [1,15,16,8,9,17,18,3,4,6,11,12,13,14,5].map(n => `/projects/auto-alliance-${n}.jpeg`),
       title: 'Automotive Alliances Workshop',
       tag: 'INDUSTRIAL • 2024',
       type: 'Car Service Workshop',
@@ -144,7 +132,8 @@ export default function Home() {
     },
     {
       id: 5,
-      images: Array.from({ length: 29 }, (_, i) => `/projects/maison-nazareth-${i + 1}.jpeg`),
+      // After shots only (1-24) — before shots excluded
+      images: Array.from({ length: 24 }, (_, i) => `/projects/maison-nazareth-${i + 1}.jpeg`),
       title: 'Maison Nazareth',
       tag: 'HOSPITALITY • 2024',
       type: 'Hospitality Conversion (Hotel)',
@@ -168,55 +157,31 @@ export default function Home() {
       {isModalOpen && currentProject && (
         <div id="modal" className="on" onClick={closeModal}>
           <div id="modal-card" onClick={e => e.stopPropagation()}>
-            <div id="modal-photo">
-              <div
-                id="modal-car-track"
-                style={{ transform: `translateX(-${modalImageIndex * 100}%)` }}
-              >
-                {currentProject.images.map((img: string, index: number) => (
-                  <Image
-                    key={index}
-                    src={img}
-                    alt={`${currentProject.title} — image ${index + 1}`}
-                    width={800}
-                    height={400}
-                    sizes="(max-width: 900px) 100vw, 800px"
-                    style={{ minWidth: '100%', height: '100%', objectFit: 'cover' }}
-                    unoptimized={currentProject.unoptimized}
-                  />
-                ))}
-              </div>
-              {currentProject.images.length > 1 && (
-                <>
-                  <button className="mcar-btn mcar-prev" onClick={modalPrev}>&#8249;</button>
-                  <button className="mcar-btn mcar-next" onClick={modalNext}>&#8250;</button>
-                  <div id="modal-car-dots">
-                    {currentProject.images.map((_: string, i: number) => (
-                      <span
-                        key={i}
-                        className={i === modalImageIndex ? 'on' : ''}
-                        onClick={e => { e.stopPropagation(); setModalImageIndex(i); }}
-                      />
-                    ))}
-                  </div>
-                </>
-              )}
-              <div id="modal-photo-overlay">
-                <div id="modal-tag">{currentProject.tag}</div>
-                <div id="modal-title">{currentProject.title}</div>
-              </div>
-            </div>
-            <div id="modal-body">
+            <div id="modal-header">
+              <button id="modal-x" onClick={closeModal}>&#10005;</button>
+              <p id="modal-tag">{currentProject.tag}</p>
+              <h2 id="modal-title">{currentProject.title}</h2>
               <div className="modal-meta">
                 <div><span className="pm-label">Type</span><span className="pm-val">{currentProject.type}</span></div>
                 <div><span className="pm-label">Client</span><span className="pm-val">{currentProject.client}</span></div>
                 <div><span className="pm-label">Duration</span><span className="pm-val">{currentProject.duration}</span></div>
               </div>
               <p id="modal-desc">{currentProject.description}</p>
-              <div className="modal-btns">
-                <button id="modal-close" onClick={closeModal}>Close</button>
-                <button id="modal-enquire" onClick={() => { closeModal(); scrollToSection('contact'); }}>Enquire About This Project</button>
-              </div>
+            </div>
+            <div className="modal-gallery">
+              {currentProject.images.map((img: string, i: number) => (
+                // eslint-disable-next-line @next/next/no-img-element
+                <img
+                  key={i}
+                  src={img}
+                  alt={`${currentProject.title} — photo ${i + 1}`}
+                  loading={i < 4 ? 'eager' : 'lazy'}
+                />
+              ))}
+            </div>
+            <div className="modal-footer">
+              <button id="modal-close" onClick={closeModal}>Close</button>
+              <button id="modal-enquire" onClick={() => { closeModal(); scrollToSection('contact'); }}>Enquire About This Project</button>
             </div>
           </div>
         </div>
