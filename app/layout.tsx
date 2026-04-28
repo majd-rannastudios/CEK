@@ -38,7 +38,7 @@ export const metadata: Metadata = {
     'industrial design',
     'sustainable engineering',
     'CEK Group',
-    'Elie Khoury',
+    'Elie El Khoury',
   ],
   authors: [{ name: 'CEK Group', url: BASE_URL }],
   creator: 'CEK Group',

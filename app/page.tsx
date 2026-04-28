@@ -101,7 +101,7 @@ export default function Home() {
     },
     {
       id: 2,
-      images: Array.from({ length: 11 }, (_, i) => `/projects/e-motorshow-${i + 1}.jpeg`),
+      images: ['/projects/e-motorshow-cover.jpeg', ...Array.from({ length: 11 }, (_, i) => `/projects/e-motorshow-${i + 1}.jpeg`)],
       title: 'E-Motorshow Middle East 2024',
       tag: 'AUTOMOTIVE • 2024',
       type: 'Automotive Exhibition',
@@ -112,7 +112,7 @@ export default function Home() {
     },
     {
       id: 3,
-      images: Array.from({ length: 21 }, (_, i) => `/projects/sahel-alma-${i + 1}.jpeg`),
+      images: ['/projects/sahel-alma-17.jpeg', ...Array.from({ length: 21 }, (_, i) => `/projects/sahel-alma-${i + 1}.jpeg`)],
       title: 'Sahel Alma Notre Dame School',
       tag: 'WATERPROOFING • 2024',
       type: 'School',
@@ -123,7 +123,7 @@ export default function Home() {
     },
     {
       id: 4,
-      images: Array.from({ length: 9 }, (_, i) => `/projects/solar-${i + 1}.jpeg`),
+      images: ['/projects/solar-7.jpeg', ...Array.from({ length: 9 }, (_, i) => `/projects/solar-${i + 1}.jpeg`)],
       title: 'Bekaa Valley Solar System',
       tag: 'ENERGY • 2024',
       type: 'Solar Energy (Agriculture Use)',
@@ -135,7 +135,7 @@ export default function Home() {
     {
       id: 5,
       // After shots only (1-24) — before shots excluded
-      images: Array.from({ length: 24 }, (_, i) => `/projects/maison-nazareth-${i + 1}.jpeg`),
+      images: ['/projects/maison-nazareth-cover.jpeg', ...Array.from({ length: 24 }, (_, i) => `/projects/maison-nazareth-${i + 1}.jpeg`)],
       title: 'Maison Nazareth',
       tag: 'HOSPITALITY • 2024',
       type: 'Hospitality Conversion (Hotel)',
@@ -238,7 +238,7 @@ export default function Home() {
           <img src="/hero-solar.jpeg" alt="" aria-hidden="true" id="hero-bg-img" />
         </div>
         <div className="hero-inner rv">
-          <p className="label hero-eyebrow">CEK Group LLC — Established 1994</p>
+          <p className="label hero-eyebrow">CEK Group SARL — Established 2023</p>
           <h1 className="hero-h1">You Imagine It.<br />We Engineer It.</h1>
           <p className="hero-sub">A multidisciplinary engineering firm delivering end-to-end solutions — from concept and design to execution, maintenance, and facility management.</p>
           <div className="hero-btns">
@@ -463,9 +463,10 @@ export default function Home() {
         <div className="founder-photo">
           <Image
             src="/founder.jpg"
-            alt="Elie Khoury — Founder & Civil Engineer, CEK Group"
+            alt="Elie El Khoury — Founder & Civil Engineer, CEK Group"
             fill
             sizes="(max-width: 900px) 100vw, 50vw"
+            unoptimized
             style={{ objectFit: 'cover', objectPosition: 'center top', filter: 'grayscale(15%) brightness(.92)' }}
           />
           <div className="founder-photo-overlay"></div>
@@ -473,13 +474,13 @@ export default function Home() {
         <div className="founder-copy">
           <div className="rv">
             <p className="label" style={{ color: '#18281e', marginBottom: '1.25rem' }}>Leadership Vision</p>
-            <p className="founder-quote">"Our legacy is not measured in months, but in the decades the structure remains impeccable. We steward the future of the skyline."</p>
+            <p className="founder-quote">"At CEK Group, we believe that engineering is not just about building spaces — it is about creating solutions that are practical, efficient, and built to last."</p>
           </div>
           <div className="founder-bio-block rv rd2">
-            <p className="label" style={{ color: '#18281e', fontSize: '.8rem' }}>Elie Khoury</p>
-            <p className="label" style={{ color: '#434844' }}>Founder &bull; Civil Engineer (13+ Yrs Exp)</p>
-            <p className="founder-sig">E. Khoury</p>
-            <p className="founder-bio">Under Elie's direction, CEK has overseen over $2B in asset value, specializing in high-complexity structural engineering and long-term facility preservation for the world's most demanding environments.</p>
+            <p className="label" style={{ color: '#18281e', fontSize: '.8rem' }}>Elie El Khoury</p>
+            <p className="label" style={{ color: '#434844' }}>Founder &bull; Civil Engineer</p>
+            <p className="founder-sig">Elie El Khoury</p>
+            <p className="founder-bio">With a multidisciplinary approach covering architecture, civil, mechanical, and electrical works, we provide a single point of contact for every stage of a project — from concept and design to execution and maintenance. Our strength lies in simplicity and control: we work closely with trusted partners, carefully manage costs, and focus on delivering high-quality results without unnecessary complexity. Whether it is a residential project, a commercial space, or a technical installation, our goal remains the same: to turn ideas into well-executed, functional, and durable realities. At CEK, every project is treated with commitment, precision, and a clear vision.</p>
           </div>
         </div>
       </section>
@@ -510,13 +511,13 @@ export default function Home() {
                   <p className="clink-val">Connect Directly</p>
                 </div>
               </a>
-              <a href="mailto:elie@cek-group.com" className="clink">
+              <a href="mailto:info@cek-group.com" className="clink">
                 <div className="clink-icon">
                   <span className="material-symbols-outlined" style={{ fontSize: '1.15rem' }}>mail</span>
                 </div>
                 <div>
                   <p className="clink-label">Request a Quote</p>
-                  <p className="clink-val">elie@cek-group.com</p>
+                  <p className="clink-val">info@cek-group.com</p>
                 </div>
               </a>
             </div>
@@ -571,14 +572,16 @@ export default function Home() {
               height={66}
               style={{ filter: 'brightness(0) invert(1)', opacity: 0.9 }}
             />
-            <p className="footer-tagline">Engineered Integrity. Absolute Precision.</p>
+            <p className="footer-tagline">A single point of contact for every stage of your project.</p>
           </div>
           <div>
             <h4 className="footer-h4">Services</h4>
             <ul className="footer-links">
+              <li><a>Architecture & Design</a></li>
+              <li><a>Civil Construction</a></li>
+              <li><a>Mechanical & Electrical</a></li>
               <li><a>Build Management</a></li>
               <li><a>Facility Management</a></li>
-              <li><a>Civil Construction</a></li>
               <li><a>Structural Analysis</a></li>
             </ul>
           </div>
@@ -588,17 +591,9 @@ export default function Home() {
               <li><a onClick={() => scrollToSection('projects')}>Portfolio</a></li>
               <li><a onClick={() => scrollToSection('founder')}>About</a></li>
               <li><a onClick={() => scrollToSection('contact')}>Contact</a></li>
+              <li><a href="mailto:info@cek-group.com">info@cek-group.com</a></li>
+              <li><a href="tel:+96170434922">+961 70 434 922</a></li>
             </ul>
-          </div>
-          <div>
-            <h4 className="footer-h4">Newsletter</h4>
-            <p className="footer-nl-label">Stay updated with our latest projects and industry insights.</p>
-            <div className="nl-row">
-              <input type="email" placeholder="your@email.com" />
-              <button type="submit">
-                <span className="material-symbols-outlined">arrow_forward</span>
-              </button>
-            </div>
           </div>
         </div>
         <div className="footer-bottom">

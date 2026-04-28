@@ -16,7 +16,7 @@ export function generateOrganizationSchema() {
       width: 120,
       height: 40,
     },
-    foundingDate: '1994',
+    foundingDate: '2023',
     founder: {
       '@id': `${BASE_URL}/#founder`,
     },
@@ -28,7 +28,7 @@ export function generateOrganizationSchema() {
       '@type': 'ContactPoint',
       telephone: '+961-70-434-922',
       contactType: 'customer service',
-      email: 'elie@cek-group.com',
+      email: 'info@cek-group.com',
       availableLanguage: 'English',
     },
     sameAs: [
@@ -150,10 +150,10 @@ export function generateLocalBusinessSchema() {
     image: `${BASE_URL}/og-image.jpg`,
     url: BASE_URL,
     telephone: '+961-70-434-922',
-    email: 'elie@cek-group.com',
+    email: 'info@cek-group.com',
     description:
-      'Engineered Integrity. Absolute Precision. Executive oversight for high-value infrastructure and long-term asset preservation. Established 1994.',
-    foundingDate: '1994',
+      'Engineered Integrity. Absolute Precision. Executive oversight for high-value infrastructure and long-term asset preservation. Established 2023.',
+    foundingDate: '2023',
     priceRange: '$$$',
     address: {
       '@type': 'PostalAddress',
@@ -226,7 +226,7 @@ export function generatePersonSchema() {
     '@context': 'https://schema.org',
     '@type': 'Person',
     '@id': `${BASE_URL}/#founder`,
-    name: 'Elie Khoury',
+    name: 'Elie El Khoury',
     jobTitle: 'Founder & Civil Engineer',
     description:
       'Under Elie\'s direction, CEK has overseen over $2B in asset value, specializing in high-complexity structural engineering and long-term facility preservation for the world\'s most demanding environments.',
