@@ -12,6 +12,7 @@ export default function Home() {
   const [showBackToTop, setShowBackToTop] = useState(false);
   const [visibleProjectsCount, setVisibleProjectsCount] = useState(4);
   const [isMobileBreakpoint, setIsMobileBreakpoint] = useState(false);
+  const domOuterRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -59,6 +60,56 @@ export default function Home() {
     revealEls.forEach((el) => observer.observe(el));
 
     return () => observer.disconnect();
+  }, []);
+
+  useEffect(() => {
+    const outer = domOuterRef.current;
+    if (!outer) return;
+    let paused = false;
+    let isDragging = false;
+    let dragStartX = 0;
+    let dragScrollLeft = 0;
+    let rafId: number;
+    const tick = () => {
+      if (!paused) {
+        outer.scrollLeft += 0.6;
+        if (outer.scrollLeft >= outer.scrollWidth / 2) outer.scrollLeft = 0;
+      }
+      rafId = requestAnimationFrame(tick);
+    };
+    rafId = requestAnimationFrame(tick);
+    const onMouseDown = (e: MouseEvent) => {
+      isDragging = true; paused = true;
+      dragStartX = e.pageX - outer.offsetLeft;
+      dragScrollLeft = outer.scrollLeft;
+      outer.style.cursor = 'grabbing';
+    };
+    const onMouseMove = (e: MouseEvent) => {
+      if (!isDragging) return;
+      e.preventDefault();
+      outer.scrollLeft = dragScrollLeft - (e.pageX - outer.offsetLeft - dragStartX) * 1.5;
+    };
+    const onMouseUp = () => {
+      if (!isDragging) return;
+      isDragging = false; paused = false;
+      outer.style.cursor = 'grab';
+    };
+    const onTouchStart = () => { paused = true; };
+    const onTouchEnd = () => { setTimeout(() => { paused = false; }, 800); };
+    outer.addEventListener('mousedown', onMouseDown);
+    window.addEventListener('mousemove', onMouseMove);
+    window.addEventListener('mouseup', onMouseUp);
+    outer.addEventListener('mouseleave', () => { if (isDragging) onMouseUp(); });
+    outer.addEventListener('touchstart', onTouchStart, { passive: true });
+    outer.addEventListener('touchend', onTouchEnd);
+    return () => {
+      cancelAnimationFrame(rafId);
+      outer.removeEventListener('mousedown', onMouseDown);
+      window.removeEventListener('mousemove', onMouseMove);
+      window.removeEventListener('mouseup', onMouseUp);
+      outer.removeEventListener('touchstart', onTouchStart);
+      outer.removeEventListener('touchend', onTouchEnd);
+    };
   }, []);
 
   const scrollToSection = (sectionId: string) => {
@@ -427,9 +478,19 @@ export default function Home() {
           </div>
           <p className="dom-desc">Three decades of specialized engineering across diverse sectors, from commercial towers to critical infrastructure.</p>
         </div>
-        <div className="dom-outer">
+        <div className="dom-outer" ref={domOuterRef}>
           <div className="dom-track">
             {[
+              { icon: 'apartment', title: 'Commercial Towers', desc: 'High-rise structural engineering and long-term facility management protocols.' },
+              { icon: 'storefront', title: 'Retail Showrooms', desc: 'Large-span structures optimised for dynamic retail and commercial environments.' },
+              { icon: 'factory', title: 'Industrial Facilities', desc: 'Heavy-load engineering for manufacturing and industrial processing plants.' },
+              { icon: 'museum', title: 'Cultural Institutions', desc: 'Structural design for museums, galleries, theatres, and civic buildings.' },
+              { icon: 'king_bed', title: 'Hotels', desc: 'Complex MEP integration for world-class hospitality assets.' },
+              { icon: 'school', title: 'Schools & Convents', desc: 'Safety-centric educational environments built for multi-generational longevity.' },
+              { icon: 'local_hospital', title: 'Healthcare', desc: 'Critical care infrastructure and vibration-sensitive laboratory design.' },
+              { icon: 'directions_car', title: 'Automotive Showrooms', desc: 'High-load flooring and glass-dominant structures for luxury brand displays.' },
+              { icon: 'beach_access', title: 'Luxury Resorts', desc: 'Bespoke civil and structural works for high-end leisure destinations.' },
+              { icon: 'villa', title: 'Villas & Residences', desc: 'Precision residential construction for private clients and luxury developers.' },
               { icon: 'apartment', title: 'Commercial Towers', desc: 'High-rise structural engineering and long-term facility management protocols.' },
               { icon: 'storefront', title: 'Retail Showrooms', desc: 'Large-span structures optimised for dynamic retail and commercial environments.' },
               { icon: 'factory', title: 'Industrial Facilities', desc: 'Heavy-load engineering for manufacturing and industrial processing plants.' },
@@ -461,13 +522,11 @@ export default function Home() {
       {/* Founder */}
       <section id="founder">
         <div className="founder-photo">
-          <Image
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
             src="/founder.jpg"
             alt="Elie El Khoury — Founder & Civil Engineer, CEK Group"
-            fill
-            sizes="(max-width: 900px) 100vw, 50vw"
-            unoptimized
-            style={{ objectFit: 'cover', objectPosition: 'center top', filter: 'grayscale(15%) brightness(.92)' }}
+            style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center top', filter: 'grayscale(15%) brightness(.92)' }}
           />
           <div className="founder-photo-overlay"></div>
         </div>
@@ -477,7 +536,6 @@ export default function Home() {
             <p className="founder-quote">"At CEK Group, we believe that engineering is not just about building spaces — it is about creating solutions that are practical, efficient, and built to last."</p>
           </div>
           <div className="founder-bio-block rv rd2">
-            <p className="label" style={{ color: '#18281e', fontSize: '.8rem' }}>Elie El Khoury</p>
             <p className="label" style={{ color: '#434844' }}>Founder &bull; Civil Engineer</p>
             <p className="founder-sig">Elie El Khoury</p>
             <p className="founder-bio">With a multidisciplinary approach covering architecture, civil, mechanical, and electrical works, we provide a single point of contact for every stage of a project — from concept and design to execution and maintenance. Our strength lies in simplicity and control: we work closely with trusted partners, carefully manage costs, and focus on delivering high-quality results without unnecessary complexity. Whether it is a residential project, a commercial space, or a technical installation, our goal remains the same: to turn ideas into well-executed, functional, and durable realities. At CEK, every project is treated with commitment, precision, and a clear vision.</p>
@@ -603,6 +661,9 @@ export default function Home() {
             <a href="#" target="_blank" rel="noopener noreferrer">Twitter</a>
             <a href="#" target="_blank" rel="noopener noreferrer">Instagram</a>
           </div>
+        </div>
+        <div className="footer-madeby">
+          Made by <a href="https://rannastudios.com" target="_blank" rel="noopener noreferrer">Rannastudios.com</a>
         </div>
       </footer>
 
