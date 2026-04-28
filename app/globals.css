@@ -647,25 +647,6 @@ details[open] .xi {
   cursor: grabbing;
 }
 
-.dom-outer::before, .dom-outer::after {
-  content: "";
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  width: 40px;
-  z-index: 2;
-  pointer-events: none;
-}
-
-.dom-outer::before {
-  left: 0;
-  background: linear-gradient(to right, #f6f3eb, transparent);
-}
-
-.dom-outer::after {
-  right: 0;
-  background: linear-gradient(to left, #f6f3eb, transparent);
-}
 
 @keyframes marquee {
   0% {
