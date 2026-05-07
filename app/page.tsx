@@ -8,6 +8,7 @@ export default function Home() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [currentProject, setCurrentProject] = useState<any>(null);
+  const [activeTab, setActiveTab] = useState<'after' | 'before'>('after');
   const [toastMessage, setToastMessage] = useState('');
   const [showBackToTop, setShowBackToTop] = useState(false);
   const [visibleProjectsCount, setVisibleProjectsCount] = useState(4);
@@ -122,6 +123,7 @@ export default function Home() {
 
   const openModal = (project: any) => {
     setCurrentProject(project);
+    setActiveTab('after');
     setIsModalOpen(true);
     document.body.style.overflow = 'hidden';
   };
@@ -185,8 +187,8 @@ export default function Home() {
     },
     {
       id: 5,
-      // After shots only (1-24) — before shots excluded
-      images: ['/projects/maison-nazareth-cover.jpeg', ...Array.from({ length: 24 }, (_, i) => `/projects/maison-nazareth-${i + 1}.jpeg`)],
+      images: ['/projects/maison-nazareth-cover.jpeg', ...Array.from({ length: 24 }, (_, i) => `/projects/maison-nazareth-${i + 1}.jpeg`), '/projects/ebrine-1.jpeg', '/projects/ebrine-2.jpeg', '/projects/ebrine-3.jpeg'],
+      beforeImages: Array.from({ length: 9 }, (_, i) => `/projects/ebrine-before-${i + 1}.jpeg`),
       title: 'Maison Nazareth',
       tag: 'HOSPITALITY • 2024',
       type: 'Hospitality Conversion (Hotel)',
@@ -220,16 +222,34 @@ export default function Home() {
                 <div><span className="pm-label">Duration</span><span className="pm-val">{currentProject.duration}</span></div>
               </div>
               <p id="modal-desc">{currentProject.description}</p>
+              {currentProject.beforeImages && (
+                <div className="modal-tabs">
+                  <button
+                    className={`modal-tab${activeTab === 'after' ? ' active' : ''}`}
+                    onClick={() => setActiveTab('after')}
+                  >After</button>
+                  <button
+                    className={`modal-tab${activeTab === 'before' ? ' active' : ''}`}
+                    onClick={() => setActiveTab('before')}
+                  >Before</button>
+                </div>
+              )}
             </div>
-            <div className="modal-gallery">
-              {currentProject.images.map((img: string, i: number) => (
-                // eslint-disable-next-line @next/next/no-img-element
-                <img
-                  key={i}
-                  src={img}
-                  alt={`${currentProject.title} — photo ${i + 1}`}
-                  loading={i < 4 ? 'eager' : 'lazy'}
-                />
+            <div className="modal-gallery" key={activeTab}>
+              {(activeTab === 'before' && currentProject.beforeImages
+                ? currentProject.beforeImages
+                : currentProject.images
+              ).map((img: string, i: number) => (
+                <div key={i} className="gallery-item">
+                  <div className="gallery-skeleton" />
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img
+                    src={img}
+                    alt={`${currentProject.title} — ${activeTab} photo ${i + 1}`}
+                    loading={i < 4 ? 'eager' : 'lazy'}
+                    onLoad={(e) => (e.currentTarget.parentElement as HTMLElement).classList.add('loaded')}
+                  />
+                </div>
               ))}
             </div>
             <div className="modal-footer">
