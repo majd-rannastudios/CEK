@@ -125,10 +125,10 @@ export default function RootLayout({
         />
 
         {/* Favicons */}
-        <link rel="icon" href="/logo.png" type="image/png" />
-        <link rel="apple-touch-icon" sizes="180x180" href="/logo.png" />
-        <link rel="icon" type="image/png" sizes="32x32" href="/logo.png" />
-        <link rel="icon" type="image/png" sizes="16x16" href="/logo.png" />
+        <link rel="icon" href="/emblem.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="180x180" href="/emblem.png" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/emblem.png" />
+        <link rel="icon" type="image/png" sizes="16x16" href="/emblem.png" />
         <link rel="manifest" href="/site.webmanifest" />
 
         {/* JSON-LD Structured Data */}
