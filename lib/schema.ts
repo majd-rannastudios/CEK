@@ -28,7 +28,7 @@ export function generateOrganizationSchema() {
       '@type': 'ContactPoint',
       telephone: '+961-70-434-922',
       contactType: 'customer service',
-      email: 'info@cek-group.com',
+      email: 'elie.khoury@cek-group.com',
       availableLanguage: 'English',
     },
     sameAs: [
@@ -150,7 +150,7 @@ export function generateLocalBusinessSchema() {
     image: `${BASE_URL}/og-image.jpg`,
     url: BASE_URL,
     telephone: '+961-70-434-922',
-    email: 'info@cek-group.com',
+    email: 'elie.khoury@cek-group.com',
     description:
       'Engineered Integrity. Absolute Precision. Executive oversight for high-value infrastructure and long-term asset preservation. Established 2023.',
     foundingDate: '2023',

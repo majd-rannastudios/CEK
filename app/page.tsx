@@ -589,13 +589,13 @@ export default function Home() {
                   <p className="clink-val">Connect Directly</p>
                 </div>
               </a>
-              <a href="mailto:info@cek-group.com" className="clink">
+              <a href="mailto:elie.khoury@cek-group.com" className="clink">
                 <div className="clink-icon">
                   <span className="material-symbols-outlined" style={{ fontSize: '1.15rem' }}>mail</span>
                 </div>
                 <div>
                   <p className="clink-label">Request a Quote</p>
-                  <p className="clink-val">info@cek-group.com</p>
+                  <p className="clink-val">elie.khoury@cek-group.com</p>
                 </div>
               </a>
             </div>
@@ -669,7 +669,7 @@ export default function Home() {
               <li><a onClick={() => scrollToSection('projects')}>Portfolio</a></li>
               <li><a onClick={() => scrollToSection('founder')}>About</a></li>
               <li><a onClick={() => scrollToSection('contact')}>Contact</a></li>
-              <li><a href="mailto:info@cek-group.com">info@cek-group.com</a></li>
+              <li><a href="mailto:elie.khoury@cek-group.com">elie.khoury@cek-group.com</a></li>
               <li><a href="tel:+96170434922">+961 70 434 922</a></li>
             </ul>
           </div>
